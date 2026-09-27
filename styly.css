@@ -93,3 +93,23 @@ textarea{width:100%;font:inherit;background:var(--bg);color:var(--text);border:1
 .hlaska[hidden]{display:none}
 .hlaska span{flex:1}
 .hlaska button{color:var(--akcent);font-weight:600}
+
+/* vycházky (0.3.0) */
+.vychazka{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--akcent);
+  border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.vychazka .co{flex:1;min-width:0}
+.vychazka .co b{display:block}
+.vychazka .co span{font-size:13.5px;color:var(--tlum)}
+.siroke{display:block;width:100%;font-size:18px;padding:14px}
+.mala{font-size:13.5px;margin:6px 0 10px}
+#vychazkaZapisy{margin-top:10px}
+.seznam li.den{font-size:13px;color:var(--tlum);text-transform:uppercase;letter-spacing:.4px;padding:14px 4px 4px;border:0}
+.pole{display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--tlum);margin-bottom:8px;flex:1}
+.pole input{font:inherit;font-size:17px;color:var(--text);background:var(--bg);border:1px solid var(--cara);
+  border-radius:10px;padding:9px 10px;-webkit-user-select:text;user-select:text}
+.pole input:disabled{opacity:.5}
+.casy{display:flex;gap:10px}
+.mala-skupiny{margin:8px 0}
+.mala-skupiny .skupina{min-height:70px;padding:8px 2px}
+.mala-skupiny .ik{font-size:26px}
+.hlaska .druha{color:var(--tlum);font-weight:500}

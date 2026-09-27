@@ -22,8 +22,10 @@
 
 <!-- 1. skupiny -->
 <main id="obrSkupiny" class="obrazovka">
+  <div id="vychazkaPruh"></div>
   <div id="skupiny" class="skupiny"></div>
-  <button id="dnesBtn" class="pruh">dnes: <b id="dnesPocet">0</b> zápisů · <span id="zemeNazev">—</span></button>
+  <ul id="vychazkaZapisy" class="seznam"></ul>
+  <button id="vychazkyBtn" class="pruh">vycházky a zápisy · <span id="zemeNazev">—</span></button>
 </main>
 
 <!-- 2. klávesnice -->
@@ -40,14 +42,19 @@
   </div>
 </main>
 
-<!-- 3. dnes -->
-<main id="obrDnes" class="obrazovka" hidden>
+<!-- 3. vycházky -->
+<main id="obrVychazky" class="obrazovka" hidden>
   <div class="radek-akci">
     <button id="exportBtn" class="hlavni">poslat na Mac</button>
     <span id="exportInfo" class="tlum"></span>
   </div>
-  <div id="denVyber" class="den-vyber"></div>
-  <ul id="dnesSeznam" class="seznam"></ul>
+  <ul id="vychazkySeznam" class="seznam"></ul>
+</main>
+
+<!-- 4. detail vycházky -->
+<main id="obrVychazka" class="obrazovka" hidden>
+  <div id="vychazkaDetail"></div>
+  <ul id="vychazkaDetailZapisy" class="seznam"></ul>
 </main>
 
 <!-- nastavení -->
