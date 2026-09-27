@@ -45,7 +45,11 @@ h2{font-size:16px;margin:18px 0 6px}
 .volba:active{background:var(--klav)}
 .volba b{display:block;font-size:19px;font-weight:600}
 .volba span{font-size:13.5px;color:var(--tlum)}
-.klavesnice{margin-top:auto;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+/* Řady nad sebou, klávesy stejně široké napříč řadami (šířka podle nejdelší
+   řady) a kratší řady na střed — jako klávesnice telefonu. */
+.klavesnice{margin-top:auto;display:flex;flex-direction:column;gap:7px}
+.rada{display:flex;justify-content:center;gap:5px}
+.rada .klavesa{flex:0 0 calc((100% - (var(--sloupcu) - 1) * 5px) / var(--sloupcu));padding:0}
 .klavesa{background:var(--klav);border-radius:9px;height:52px;font-size:22px;font-weight:500;text-transform:uppercase}
 .klavesa:active:not([disabled]){background:var(--akcent);color:#fff}
 .klavesa[disabled]{background:var(--mrtva);color:var(--cara)}

@@ -7,10 +7,17 @@
 // se nerozlišuje. Vše běží offline, zápisy leží v IndexedDB telefonu.
 'use strict';
 
-const VERZE = '0.1.0';
+const VERZE = '0.2.0';
 const LIMIT = 10;                // tolik druhů a méně → rovnou výběr
 const CEKAT_NA_GPS_MS = 3000;    // uložení nečeká na polohu déle (PRD P0-2)
-const ABECEDA = 'abcdefghijklmnopqrstuvwxyz'.split('');
+// Rozložení klávesnice (nastavení). Řady se kreslí nad sebou jako na telefonu;
+// QWERTY je výchozí (Zdeněk 28. 9.), QWERTZ odpovídá české klávesnici iPhonu.
+const ROZLOZENI = {
+  qwerty: {nazev: 'QWERTY', rady: ['qwertyuiop', 'asdfghjkl', 'zxcvbnm']},
+  qwertz: {nazev: 'QWERTZ (česká)', rady: ['qwertzuiop', 'asdfghjkl', 'yxcvbnm']},
+  abc: {nazev: 'abecedně', rady: ['abcdefg', 'hijklmn', 'opqrstu', 'vwxyz']},
+};
+let rozlozeni = 'qwerty';
 const IKONY = {savec: '🦊', motyl: '🦋', vazka: '🪽', brouk: '🐞', hmyz: '🦗', pavouk: '🕷️',
   jesterka: '🦎', had: '🐍', zaba: '🐸', rostlina: '🌿', houba: '🍄', jine: '🐌'};
 
@@ -245,8 +252,11 @@ function vykresliPsani() {
   }
   const {znaky} = p.pre ? dalsiZnaky(p.klice, p.pre)
     : {znaky: new Set(p.klice.map(x => x.k[0]))};
-  $('#klavesnice').innerHTML = ABECEDA.map(z =>
-    `<button class="klavesa" data-z="${z}"${znaky.has(z) ? '' : ' disabled'}>${z}</button>`).join('');
+  const {rady} = ROZLOZENI[rozlozeni] || ROZLOZENI.qwerty;
+  const sloupcu = Math.max(...rady.map(r => r.length));
+  $('#klavesnice').style.setProperty('--sloupcu', sloupcu);
+  $('#klavesnice').innerHTML = rady.map(r => `<div class="rada">${[...r].map(z =>
+    `<button class="klavesa" data-z="${z}"${znaky.has(z) ? '' : ' disabled'}>${z}</button>`).join('')}</div>`).join('');
   $('#mezera').disabled = !znaky.has(' ');
 }
 $('#klavesnice').onclick = e => { const b = e.target.closest('.klavesa'); if (b && !b.disabled) stiskni(b.dataset.z); };
@@ -397,11 +407,19 @@ async function obrNastaveni() {
         : (z.kb ? `${z.kb} kB` : '')}</span></span>
       <button class="vedlejsi" data-akce="${s ? 'pouzit' : 'stahnout'}">${s ? (z.zeme === aktivni ? 'aktualizovat' : 'použít') : 'stáhnout'}</button></li>`;
   }).join('') || '<li class="tlum">Bez připojení a bez stažené země.</li>';
+  $('#rozlozeni').innerHTML = Object.entries(ROZLOZENI).map(([k, r]) =>
+    `<button data-r="${k}" class="${k === rozlozeni ? 'akt' : ''}">${esc(r.nazev)}</button>`).join('');
   const trvale = navigator.storage && navigator.storage.persisted ? await navigator.storage.persisted() : null;
   $('#oAplikaci').textContent = `verze ${VERZE} · zápisů ${(await vse('zapisy')).length} · úložiště ${
     trvale ? 'trvalé' : 'může ho iOS uvolnit — posílej zápisy na Mac'}`;
 }
 $('#nastaveniBtn').onclick = obrNastaveni;
+$('#rozlozeni').onclick = async e => {
+  const b = e.target.closest('button'); if (!b) return;
+  rozlozeni = b.dataset.r;
+  await nastav('rozlozeni', rozlozeni);
+  obrNastaveni();
+};
 $('#zemeSeznam').onclick = async e => {
   const b = e.target.closest('button'); if (!b) return;
   const z = b.closest('li').dataset.z;
@@ -423,6 +441,7 @@ $('#zemeSeznam').onclick = async e => {
 (async () => {
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
   if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+  rozlozeni = (await nastaveni('rozlozeni')) || 'qwerty';
   await nactiZemi(await nastaveni('zeme'));
   await spocitejCasto();
   if (seznam) obrSkupiny(); else obrNastaveni();

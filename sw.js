@@ -1,7 +1,7 @@
 // Offline: aplikace se po první návštěvě spouští z mezipaměti. Seznamy druhů
 // sem nepatří — aplikace si je ukládá sama do IndexedDB (nastavení → země).
 // Při změně kterékoli části aplikace zvýšit VERZE, jinak telefon drží starou.
-const VERZE = 'zapisnik-0.1.0';
+const VERZE = 'zapisnik-0.2.0';
 const SOUBORY = ['./', 'index.html', 'app.js', 'styly.css', 'manifest.webmanifest',
   'ikony/ikona-180.png', 'ikony/ikona-192.png', 'ikony/ikona-512.png'];
 
