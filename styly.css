@@ -1,0 +1,91 @@
+:root{--bg:#14161a;--panel:#1f232b;--text:#f1f3f5;--tlum:#9aa0a6;--cara:#30353f;
+  --akcent:#4f8ef7;--ok:#3fb56b;--pozor:#e5534b;--klav:#2a2f38;--mrtva:#1a1d22;
+  --spodek:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root{--bg:#f4f5f7;--panel:#fff;--text:#111;--tlum:#5f6670;
+  --cara:#d9dde3;--klav:#e6e9ee;--mrtva:#f0f1f3}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}   /* jinak ho přebije display:flex obrazovek */
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);
+  font:17px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-user-select:none;user-select:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;
+  padding:calc(env(safe-area-inset-top,0px) + 6px) 10px 6px;background:var(--bg);border-bottom:1px solid var(--cara)}
+header h1{flex:1;margin:0;font-size:18px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ikona{font-size:26px;width:44px;height:44px;border-radius:10px}
+.ikona:active{background:var(--klav)}
+.obrazovka{padding:10px 10px calc(10px + var(--spodek))}
+.tlum{color:var(--tlum)}
+h2{font-size:16px;margin:18px 0 6px}
+
+/* skupiny */
+.skupiny{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.skupina{background:var(--panel);border:1px solid var(--cara);border-radius:14px;padding:14px 4px 10px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;min-height:92px}
+.skupina:active{border-color:var(--akcent);transform:scale(.97)}
+.skupina .ik{font-size:34px;line-height:1}
+.skupina .jm{font-size:14px;text-align:center}
+.skupina[disabled]{opacity:.35}
+.pruh{display:block;width:100%;margin-top:14px;padding:14px;border-radius:12px;background:var(--panel);
+  border:1px solid var(--cara);text-align:left}
+
+/* klávesnice */
+#obrKlavesnice{display:flex;flex-direction:column;min-height:calc(100dvh - 58px)}
+.predpona{font-size:28px;min-height:40px;letter-spacing:.5px;padding:2px 4px}
+#doplneno{color:var(--akcent)}
+.kurzor{display:inline-block;width:2px;height:28px;background:var(--akcent);vertical-align:-4px;
+  animation:blik 1s steps(1) infinite}
+@keyframes blik{50%{opacity:0}}
+.zbyva{color:var(--tlum);font-size:14px;text-align:left;padding:0 4px 6px}
+.caste{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.caste::-webkit-scrollbar{display:none}
+.caste button{flex:0 0 auto;background:var(--panel);border:1px solid var(--cara);border-radius:18px;
+  padding:7px 12px;font-size:15px;max-width:70vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vyber{flex:1;overflow:auto;margin-bottom:8px}
+.volba{display:block;width:100%;text-align:left;padding:11px 12px;border-bottom:1px solid var(--cara)}
+.volba:active{background:var(--klav)}
+.volba b{display:block;font-size:19px;font-weight:600}
+.volba span{font-size:13.5px;color:var(--tlum)}
+.klavesnice{margin-top:auto;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.klavesa{background:var(--klav);border-radius:9px;height:52px;font-size:22px;font-weight:500;text-transform:uppercase}
+.klavesa:active:not([disabled]){background:var(--akcent);color:#fff}
+.klavesa[disabled]{background:var(--mrtva);color:var(--cara)}
+.klavesy-spodek{display:grid;grid-template-columns:1.2fr 2fr 1fr;gap:6px;margin-top:6px}
+.mezera{text-transform:none;font-size:16px}
+.smaz{font-size:24px}
+.vedlejsi{background:var(--panel);border:1px solid var(--cara);border-radius:9px;padding:0 8px;font-size:15px;min-height:52px}
+.nebezpecne{color:var(--pozor)}
+.hlavni{background:var(--akcent);color:#fff;border-radius:10px;padding:12px 18px;font-weight:600}
+
+/* dnes */
+.radek-akci{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 10px}
+.den-vyber{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
+.den-vyber button{flex:0 0 auto;border:1px solid var(--cara);border-radius:16px;padding:5px 11px;font-size:14px}
+.den-vyber button.akt{background:var(--akcent);border-color:var(--akcent);color:#fff}
+.seznam{list-style:none;margin:0;padding:0}
+.seznam li{display:flex;gap:10px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--cara)}
+.seznam li .cas{color:var(--tlum);font-variant-numeric:tabular-nums;font-size:14px;min-width:44px}
+.seznam li .co{flex:1;min-width:0}
+.seznam li .co b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.seznam li .co span{font-size:13px;color:var(--tlum)}
+.seznam li .zn{font-size:13px;color:var(--tlum);white-space:nowrap}
+.seznam li.zeme button{margin-left:auto}
+
+/* list (úprava zápisu) */
+.list{position:fixed;inset:0;z-index:20;background:#0009;display:flex;align-items:flex-end}
+.list[hidden]{display:none}
+.list-obsah{width:100%;background:var(--panel);border-radius:16px 16px 0 0;padding:16px 16px calc(16px + var(--spodek))}
+.list h2{margin:0 0 2px;font-size:20px}
+.pocet{display:flex;align-items:center;gap:18px;margin:14px 0}
+.pocet .klavesa{width:56px}
+.pocet b{font-size:26px;min-width:40px;text-align:center}
+.prepinac{display:flex;align-items:center;gap:10px;margin:6px 0 12px;font-size:17px}
+.prepinac input{width:24px;height:24px}
+textarea{width:100%;font:inherit;background:var(--bg);color:var(--text);border:1px solid var(--cara);
+  border-radius:10px;padding:10px;-webkit-user-select:text;user-select:text}
+
+.hlaska{position:fixed;left:12px;right:12px;bottom:calc(16px + var(--spodek));z-index:30;background:var(--panel);
+  border:1px solid var(--cara);border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:center;
+  box-shadow:0 6px 24px #0006}
+.hlaska[hidden]{display:none}
+.hlaska span{flex:1}
+.hlaska button{color:var(--akcent);font-weight:600}

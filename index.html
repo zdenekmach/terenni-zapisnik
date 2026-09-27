@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zápisník">
+<meta name="theme-color" content="#14161a">
+<title>Zápisník</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="ikony/ikona-180.png">
+<link rel="icon" href="ikony/ikona-192.png">
+<link rel="stylesheet" href="styly.css">
+</head>
+<body>
+<header>
+  <button id="zpet" class="ikona" aria-label="zpět" hidden>‹</button>
+  <h1 id="titul">Zápisník</h1>
+  <button id="nastaveniBtn" class="ikona" aria-label="nastavení">⚙︎</button>
+</header>
+
+<!-- 1. skupiny -->
+<main id="obrSkupiny" class="obrazovka">
+  <div id="skupiny" class="skupiny"></div>
+  <button id="dnesBtn" class="pruh">dnes: <b id="dnesPocet">0</b> zápisů · <span id="zemeNazev">—</span></button>
+</main>
+
+<!-- 2. klávesnice -->
+<main id="obrKlavesnice" class="obrazovka" hidden>
+  <div class="predpona"><span id="napsano"></span><span id="doplneno"></span><span class="kurzor"></span></div>
+  <button id="zbyva" class="zbyva"></button>
+  <div id="caste" class="caste"></div>
+  <div id="vyber" class="vyber" hidden></div>
+  <div id="klavesnice" class="klavesnice"></div>
+  <div class="klavesy-spodek">
+    <button id="jenSkupina" class="vedlejsi">jen skupina</button>
+    <button id="mezera" class="klavesa mezera">mezera</button>
+    <button id="smaz" class="klavesa smaz">⌫</button>
+  </div>
+</main>
+
+<!-- 3. dnes -->
+<main id="obrDnes" class="obrazovka" hidden>
+  <div class="radek-akci">
+    <button id="exportBtn" class="hlavni">poslat na Mac</button>
+    <span id="exportInfo" class="tlum"></span>
+  </div>
+  <div id="denVyber" class="den-vyber"></div>
+  <ul id="dnesSeznam" class="seznam"></ul>
+</main>
+
+<!-- nastavení -->
+<main id="obrNastaveni" class="obrazovka" hidden>
+  <h2>Země</h2>
+  <p class="tlum">Seznam druhů se stáhne do telefonu. V terénu pak není potřeba signál.</p>
+  <ul id="zemeSeznam" class="seznam"></ul>
+  <h2>O aplikaci</h2>
+  <p class="tlum" id="oAplikaci"></p>
+</main>
+
+<!-- úprava zápisu / poznámka ke skupině -->
+<div id="list" class="list" hidden>
+  <div class="list-obsah">
+    <h2 id="listTitul"></h2>
+    <p id="listPodtitul" class="tlum"></p>
+    <div class="pocet">
+      <button id="minus" class="klavesa">−</button><b id="pocet">1</b><button id="plus" class="klavesa">+</button>
+    </div>
+    <label class="prepinac"><input type="checkbox" id="mamFotku"> mám fotku</label>
+    <textarea id="poznamka" rows="3" placeholder="poznámka"></textarea>
+    <div class="radek-akci">
+      <button id="listUlozit" class="hlavni">hotovo</button>
+      <button id="listSmazat" class="vedlejsi nebezpecne">smazat</button>
+    </div>
+  </div>
+</div>
+
+<div id="hlaska" class="hlaska" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
